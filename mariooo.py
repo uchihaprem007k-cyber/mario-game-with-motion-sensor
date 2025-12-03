@@ -1,24 +1,14 @@
-# mario_motion_clean_embedded_cam.py
-# Single-file: Mario (boss) + Webcam control (Mediapipe + OpenCV fallback) + Embedded camera UI in Pygame
-# - Embedded camera preview (CAM_W x CAM_H) shown in top-right corner of the game window
-# - Mario cannot move left past the starting x (120)
-# - Punch = FIRE + JUMP
-#
-# Requirements: pygame, opencv-python, mediapipe
-# pip install pygame opencv-python mediapipe
-
 import pygame, sys, time, threading, math, random
 import cv2
 import numpy as np
 
-# Try to import mediapipe
+
 try:
     import mediapipe as mp
     MP_AVAILABLE = True
 except Exception:
     MP_AVAILABLE = False
 
-# ---------------- PYGAME SETUP -------------
 pygame.init()
 WIDTH, HEIGHT = 1280, 720
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -33,7 +23,7 @@ WHITE=(255,255,255); BLACK=(0,0,0)
 SKY=(120,190,255); PLATFORM=(100,60,30); ORANGE=(255,140,0)
 DARK=(18,18,18)
 
-# ---------------- PIXEL SPRITES (procedural) -------------
+
 def sprite(pattern, scale=4, cmap=None):
     h=len(pattern); w=len(pattern[0])
     surf = pygame.Surface((w*scale, h*scale), pygame.SRCALPHA)
@@ -56,7 +46,7 @@ MUSH_SPR     = sprite([".rrr.","rrrrr",".rrr.","..r.."], scale=7)
 FIREBALL_SPR = sprite([".ooo.","ooooo",".ooo."], scale=5)
 BOSS_SPR     = sprite([".ppppp.","pprbbpp","pprbbpp",".ppppp."], scale=12)
 
-# ---------------- WORLD (single large level) -------------
+
 LEVEL_LENGTH = 7000
 TILE = 40
 platforms = []
